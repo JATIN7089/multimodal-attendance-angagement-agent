@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b0d">
+  <meta name="description" content="PULSE//ROOM — local-first classroom intelligence">
+  <title>PULSE//ROOM · Classroom intelligence OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+    <symbol id="i-live" viewBox="0 0 24 24"><path d="M8 7H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3l3 2V8l-3 2V9a2 2 0 0 0-2-2h-3"/><path d="M9 3h4M11 3v7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 3 6-7"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3-1.2 4.3a5 5 0 0 1-3.5 3.5L3 12l4.3 1.2a5 5 0 0 1 3.5 3.5L12 21l1.2-4.3a5 5 0 0 1 3.5-3.5L21 12l-4.3-1.2a5 5 0 0 1-3.5-3.5L12 3Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1 1.55V21h-4v-.08A1.7 1.7 0 0 0 9 19.37a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.63 15a1.7 1.7 0 0 0-1.55-1H3v-4h.08A1.7 1.7 0 0 0 4.63 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.63a1.7 1.7 0 0 0 1-1.55V3h4v.08A1.7 1.7 0 0 0 15 4.63a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9a1.7 1.7 0 0 0 1.55 1H21v4h-.08a1.7 1.7 0 0 0-1.55 1Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-usercheck" viewBox="0 0 24 24"><path d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M16 11l2 2 4-5"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v4-6a2 2 0 0 0-4 0v6-4a2 2 0 0 0-4 0v6l-1-1a2 2 0 0 0-3 3l5 6a4 4 0 0 0 3 1h5a5 5 0 0 0 5-5v-5a2 2 0 0 0-2-2Z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.7 2.2 18a2 2 0 0 0 1.7 3h16.2a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9v6M14 9v6"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 5 13 3h-2L9.5 5H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z"/><circle cx="12" cy="12.5" r="4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="m14 4 6 6-3 1-4 4-1 5-3-3-5 5-2-2 5-5-3-3 5-1 4-4 1-3Z"/></symbol>
+    <symbol id="i-poll" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h8l-1 8 9-12h-8Z"/></symbol>
+  </svg>
+
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="grid-film"></div>
+
+  <header class="commandbar">
+    <a class="brand" href="#overview" aria-label="Pulse Room home">
+      <span class="brand-orbit"><i></i><i></i><b></b></span>
+      <span class="brand-type">PULSE<span>//</span>ROOM<small>CLASSROOM OS</small></span>
+    </a>
+    <nav class="deck-nav" aria-label="Primary navigation">
+      <a href="/dashboard" class="nav-link {{ 'active' if active_page == 'dashboard' else '' }}">Command</a>
+      <a href="/live" class="nav-link {{ 'active' if active_page == 'live' else '' }}">Live room</a>
+      <a href="/insights" class="nav-link">Signals</a>
+      <a href="/attendance" class="nav-link">Learners</a>
+      <a href="/moments" class="nav-link">Moments</a>
+    </nav>
+    <div class="command-actions">
+      <div class="online-chip"><i></i><span>LOCAL AI</span><b>ONLINE</b></div>
+      <div class="runtime"><span>SESSION</span><strong id="elapsedTime">46:18</strong></div>
+      <button class="session-switch" id="sessionControl"><svg><use href="#i-pause"/></svg><span>Pause</span></button>
+      <button class="notify-button" aria-label="Notifications"><svg><use href="#i-bell"/></svg><i></i></button>
+      <a class="avatar" href="/settings" title="Account settings">{{ (user.name if user else 'User')[:2]|upper }}</a><form action="/logout" method="post" class="logout-mini"><button type="submit">Log out</button></form>
+      <button class="mobile-menu" id="openSidebar" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+
+  <aside class="mobile-deck" id="sidebar" aria-label="Mobile navigation">
+    <div class="mobile-deck-head"><span>PULSE//ROOM</span><button id="closeSidebar" aria-label="Close menu"><svg><use href="#i-x"/></svg></button></div>
+    <nav>
+      <a href="/dashboard" class="nav-link"><svg><use href="#i-grid"/></svg>Command center</a>
+      <a href="/live" class="nav-link"><svg><use href="#i-live"/></svg>Live room</a>
+      <a href="/insights" class="nav-link"><svg><use href="#i-chart"/></svg>Signal lab</a>
+      <a href="/attendance" class="nav-link"><svg><use href="#i-users"/></svg>Learners</a>
+      <a href="/moments" class="nav-link"><svg><use href="#i-pin"/></svg>Moments</a>
+      <a href="/reports" class="nav-link"><svg><use href="#i-file"/></svg>Reports</a><a href="/settings" class="nav-link"><svg><use href="#i-settings"/></svg>System settings</a><form action="/logout" method="post"><button class="mobile-logout" type="submit">Log out</button></form>
+    </nav>
+    <div class="mobile-privacy"><svg><use href="#i-shield"/></svg><span><b>Privacy locked</b>Frames stay inside this browser.</span></div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <main class="cockpit" id="overview">
+    <section class="hero-zone">
+      <div class="hero-copy">
+        <div class="overline"><i></i> ROOM 204 / BATCH A / SIGNALS LIVE</div>
+        <h1>Read the room.<br><span>Teach the moment.</span></h1>
+        <p>A live, privacy-first command layer for attendance, participation and classroom momentum.</p>
+        <div class="session-identity">
+          <span class="subject-code">DS</span>
+          <span><small>NOW RUNNING</small><strong id="sessionTitle">Data Science Fundamentals</strong></span>
+          <i></i><span><small>COHORT</small><strong>Batch A · 24 learners</strong></span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button class="ghost-action" id="markMoment"><svg><use href="#i-pin"/></svg><span>Mark moment</span><kbd>M</kbd></button>
+        <button class="ghost-action" id="exportTop"><svg><use href="#i-download"/></svg><span>Export CSV</span></button>
+        <button class="acid-action" id="launchPoll"><svg><use href="#i-poll"/></svg><span>Launch pulse poll</span></button>
+      </div>
+    </section>
+
+    <section class="signal-ribbon" aria-label="Session health">
+      <article class="signal-stat attendance-stat">
+        <span class="stat-index">01</span><div><small>Attendance</small><strong><em id="presentCount">21</em><sup>/24</sup></strong></div>
+        <div class="micro-ring" id="attendanceRing"><span>88%</span></div>
+      </article>
+      <article class="signal-stat engagement-stat">
+        <span class="stat-index">02</span><div><small>Room energy</small><strong><em id="engagementCount">80</em><sup>%</sup></strong></div>
+        <div class="wave-mark"><i></i><i></i><i></i><i></i><i></i></div>
+      </article>
+      <article class="signal-stat participation-stat">
+        <span class="stat-index">03</span><div><small>Participation</small><strong><em id="participationCount">64</em><sup>%</sup></strong><p id="interactionCount">107 interactions</p></div>
+        <svg class="mini-trend" viewBox="0 0 100 42"><path d="M2 36 18 29 31 32 47 18 61 24 76 11 98 5"/></svg>
+      </article>
+      <article class="signal-stat attention-stat">
+        <span class="stat-index">04</span><div><small>Intervention queue</small><strong><em id="attentionCount">3</em><sup>people</sup></strong></div>
+        <button id="viewLearners">Inspect <span>↗</span></button>
+      </article>
+    </section>
+
+    <section class="live-layout" id="live">
+      <article class="vision-deck">
+        <header class="deck-head">
+          <div><span class="deck-kicker">VISION LAYER / 01</span><h2>Live room canvas</h2></div>
+          <div class="deck-tools">
+            <span class="privacy-chip"><svg><use href="#i-shield"/></svg>Zero-frame storage</span>
+            <label class="vision-select" title="Choose a camera source"><span>CAM</span><select id="cameraSource" aria-label="Camera source" disabled><option value="">Default camera</option></select></label>
+            <label class="vision-select" title="Detection accuracy versus speed"><span>AI</span><select id="detectionSensitivity" aria-label="Detection sensitivity"><option value="performance">Fast</option><option value="balanced" selected>Balanced</option><option value="high">High accuracy</option></select></label>
+            <button id="focusCamera" aria-label="Focus camera"><svg><use href="#i-focus"/></svg></button>
+          </div>
+        </header>
+        <div class="camera-stage" id="cameraStage">
+          <video id="cameraVideo" autoplay playsinline muted></video>
+          <canvas id="detectionCanvas" aria-label="Live anonymous face-presence overlay"></canvas>
+          <div class="classroom-demo" id="classroomDemo">
+            <div class="radar-plane"><i></i><i></i><i></i><b></b></div>
+            <div class="seat-matrix" aria-hidden="true">
+              <span class="hot"></span><span></span><span></span><span class="warm"></span><span></span><span></span>
+              <span></span><span class="warm"></span><span></span><span></span><span class="hot"></span><span></span>
+              <span></span><span></span><span class="warm"></span><span></span><span></span><span></span>
+            </div>
+            <div class="demo-copy"><small>SENSOR PREVIEW</small><strong>Map the room<br>without mapping identities.</strong><p>Start the camera to activate real anonymous face-presence detection.</p></div>
+            <div class="scan-line"></div>
+          </div>
+          <div class="detector-status" id="detectorStatus" role="status" aria-live="polite" hidden>
+            <span class="detector-spinner"></span><div><b id="detectorStatusTitle">Loading local AI model…</b><small id="detectorStatusText">First launch can take a few seconds</small></div>
+          </div>
+          <div class="camera-hud camera-hud-left">
+            <span class="recording" id="recordingBadge"><i></i><span id="cameraMode">STANDBY</span></span>
+            <span class="detection-count"><svg><use href="#i-users"/></svg><b id="cameraPeople">—</b> <span id="detectionLabel">faces</span></span>
+          </div>
+          <div class="camera-hud camera-hud-right"><span>LOCAL · RES / FPS / MODEL</span><b id="cameraDiagnostics">WAITING</b></div>
+          <div class="audio-indicator" id="audioIndicator"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z M5 10v2a7 7 0 0 0 14 0v-2 M12 19v3 M8 22h8"/></svg><div class="audio-bars" id="audioBars"><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="camera-footer">
+            <div class="camera-state" id="cameraState" data-state="idle"><i></i><span><b id="cameraStatusTitle">Vision layer ready</b><small id="cameraStatusText">Click activate · frames never leave this device</small></span></div>
+            <button class="camera-button" id="cameraButton"><svg><use href="#i-camera"/></svg><span>Activate vision</span></button>
+          </div>
+        </div>
+        <div class="telemetry-strip">
+          <div><span class="telemetry-icon lime">◉</span><p><small>Presence</small><b id="visualDescription">Waiting for live camera</b></p><strong id="visualStatus">Ready</strong></div>
+          <div><span class="telemetry-icon violet">≋</span><p><small>Audio field</small><b id="audioDescription">Microphone starts with camera</b></p><strong id="audioPercent">—</strong></div>
+          <div><span class="telemetry-icon coral">↗</span><p><small>Motion vector</small><b id="movementDescription">Calculated from sustained tracks</b></p><strong id="movementStatus">Ready</strong></div>
+        </div>
+      </article>
+
+      <aside class="intervention-deck" id="copilot">
+        <header class="intervention-head"><div><span class="ai-glyph"><svg><use href="#i-spark"/></svg></span><span><small>ADAPTIVE COPILOT</small><h2>Next best move</h2></span></div><i>LIVE</i></header>
+        <div class="room-read"><span>ROOM READ</span><strong>Momentum is stable.</strong><p>Three learners show sustained low activity. A format shift now may widen participation.</p><div><i style="--v:82%"></i></div></div>
+        <div class="suggestions" id="suggestions"></div>
+        <button class="ask-copilot" id="askCopilot"><svg><use href="#i-spark"/></svg><span>Ask the room copilot</span><kbd>⌘ K</kbd></button>
+        <div class="quick-ops">
+          <button data-open-poll><svg><use href="#i-poll"/></svg><span><b>Pulse poll</b><small>30-sec room check</small></span></button>
+          <button data-mark-moment><svg><use href="#i-pin"/></svg><span><b>Mark moment</b><small>Save to timeline</small></span></button>
+        </div>
+        <p class="ai-disclaimer"><svg><use href="#i-shield"/></svg>Signals inform. Educators decide.</p>
+      </aside>
+    </section>
+
+    <section class="analysis-grid" id="insights">
+      <article class="analysis-panel trend-panel">
+        <header class="section-head"><div><span>SIGNAL LAB / 02</span><h2>Momentum over time</h2><p>Visual presence, movement and room audio fused into one explainable trend.</p></div><select id="trendRange"><option>Last 45 minutes</option><option>Last 30 minutes</option><option>Full session</option></select></header>
+        <div class="trend-legend"><span><i></i>Room momentum</span><span><i></i>Target 75</span><b><i></i>Healthy range</b></div>
+        <div class="chart-wrap">
+          <div class="chart-y"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+          <svg id="trendChart" viewBox="0 0 760 210" preserveAspectRatio="none" aria-label="Engagement trend">
+            <defs><linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c7ff5d" stop-opacity=".26"/><stop offset="1" stop-color="#c7ff5d" stop-opacity="0"/></linearGradient></defs>
+            <g class="grid-lines"><line x1="0" y1="10" x2="760" y2="10"/><line x1="0" y1="57.5" x2="760" y2="57.5"/><line x1="0" y1="105" x2="760" y2="105"/><line x1="0" y1="152.5" x2="760" y2="152.5"/><line x1="0" y1="200" x2="760" y2="200"/></g>
+            <line class="target-line" x1="0" y1="57.5" x2="760" y2="57.5"/><path id="trendArea" class="trend-area" d=""/><path id="trendLine" class="trend-line" d=""/><g id="trendDots"></g>
+          </svg>
+          <div class="chart-x" id="chartLabels"></div>
+        </div>
+        <div class="timeline-note"><i></i><p><b>Format shift recovered room momentum</b><span>Interactive example moved the signal back above target in 4 minutes.</span></p><strong>+11 pts</strong></div>
+      </article>
+
+      <article class="analysis-panel attention-panel">
+        <header class="section-head compact"><div><span>INTERVENTIONS / 03</span><h2>Human check-ins</h2></div><button class="text-button" data-filter-button="low">Open queue ↗</button></header>
+        <div class="attention-list" id="attentionList"></div>
+        <div class="fairness-callout"><svg><use href="#i-shield"/></svg><span><b>Context before conclusions</b><small>Flags use sustained patterns, never a single frame or emotion label.</small></span></div>
+      </article>
+    </section>
+
+    <section class="context-grid">
+      <article class="analysis-panel constellation-panel">
+        <header class="section-head compact"><div><span>ROOM CONSTELLATION / 04</span><h2>Participation field</h2><p>Every dot is a learner. Brightness reflects contribution—not ability.</p></div><div class="constellation-legend"><span><i></i>Active</span><span><i></i>Quiet</span><span><i></i>Absent</span></div></header>
+        <div class="constellation" id="constellation"></div>
+      </article>
+      <article class="analysis-panel events-panel" id="events">
+        <header class="section-head compact"><div><span>MOMENT LOG / 05</span><h2>What changed the room</h2></div><button class="text-button" data-mark-moment>+ Mark</button></header>
+        <div class="event-stream" id="sessionEvents"></div>
+      </article>
+    </section>
+
+    <section class="roster-deck" id="attendance">
+      <header class="roster-head">
+        <div><span>LEARNER SIGNALS / 06</span><h2>Attendance & participation ledger</h2><p>Human-readable evidence behind every aggregate metric.</p></div>
+        <div class="roster-tools">
+          <label class="search-field"><svg><use href="#i-search"/></svg><input type="search" id="rosterSearch" placeholder="Find a learner" autocomplete="off"></label>
+          <div class="filter-tabs" id="filterTabs"><button class="active" data-filter="all">All <span>24</span></button><button data-filter="present">Present <span>19</span></button><button data-filter="late">Late <span>2</span></button><button data-filter="absent">Away <span>3</span></button></div>
+          <button class="export-button" id="exportRoster"><svg><use href="#i-download"/></svg>CSV</button>
+          <button class="export-button" id="exportJson"><svg><use href="#i-file"/></svg>JSON</button>
+        </div>
+      </header>
+      <div class="table-wrap"><table><thead><tr><th>LEARNER</th><th>STATE</th><th>MOMENTUM</th><th>TOUCHPOINTS</th><th>LAST SIGNAL</th><th></th></tr></thead><tbody id="rosterBody"></tbody></table></div>
+      <footer class="roster-footer"><span id="rosterShowing">Showing 24 of 24 learners</span><span><i></i>Streaming session data</span></footer>
+    </section>
+
+    <footer class="app-footer"><span>PULSE//ROOM © 2026</span><p>Local-first intelligence. Human-first decisions.</p><span>MODEL: TINY FACE DETECTOR / LOCAL</span></footer>
+  </main>
+
+  <div class="command-modal" id="copilotModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card copilot-modal-card">
+      <button class="modal-close" id="closeModal"><svg><use href="#i-x"/></svg></button>
+      <span class="modal-label">ROOM COPILOT</span><div class="modal-spark"><svg><use href="#i-spark"/></svg></div>
+      <h2 id="modalTitle">Ask the room,<br>not a black box.</h2><p>Answers use only the live signals and roster data visible on this screen.</p>
+      <form id="copilotForm"><div class="modal-input"><svg><use href="#i-spark"/></svg><input id="copilotInput" placeholder="What should I do in the next 2 minutes?" autocomplete="off"><button type="submit">Ask ↗</button></div></form>
+      <div class="quick-prompts"><button>How is the room doing?</button><button>Who may need support?</button><button>Suggest an activity</button></div>
+      <div class="copilot-answer" id="copilotAnswer"></div>
+    </div>
+  </div>
+
+  <div class="command-modal" id="pollModal" role="dialog" aria-modal="true" aria-labelledby="pollTitle">
+    <div class="modal-card poll-card">
+      <button class="modal-close" id="closePoll"><svg><use href="#i-x"/></svg></button>
+      <span class="modal-label">30-SECOND PULSE</span><h2 id="pollTitle">Launch a room check</h2><p>Ask one low-friction question and watch anonymous responses arrive.</p>
+      <form id="pollForm">
+        <label>Question<input id="pollQuestion" maxlength="120" value="How confident are you with today’s concept?"></label>
+        <div class="poll-template-row"><button type="button" data-poll-template="confidence">Confidence</button><button type="button" data-poll-template="pace">Pace check</button><button type="button" data-poll-template="break">Need a break?</button></div>
+        <button class="modal-primary" type="submit"><svg><use href="#i-bolt"/></svg>Send to room</button>
+      </form>
+      <div class="poll-live" id="pollLive" hidden><div class="poll-live-head"><span><i></i>COLLECTING RESPONSES</span><b id="pollResponseCount">0 responses</b></div><h3 id="pollLiveQuestion"></h3><div id="pollBars" class="poll-bars"></div><button class="modal-primary danger" id="closeLivePoll">Close poll & save moment</button></div>
+    </div>
+  </div>
+
+  <div class="command-modal" id="momentModal" role="dialog" aria-modal="true" aria-labelledby="momentTitle">
+    <div class="modal-card moment-card">
+      <button class="modal-close" id="closeMoment"><svg><use href="#i-x"/></svg></button>
+      <span class="modal-label">TIMELINE MARKER</span><h2 id="momentTitle">Capture what changed.</h2><p>Add a private teaching note to this session’s event stream.</p>
+      <form id="momentForm"><label>Moment note<textarea id="momentNote" maxlength="180" placeholder="e.g. Switched to a visual example; participation lifted."></textarea></label><button class="modal-primary" type="submit"><svg><use href="#i-pin"/></svg>Save to timeline</button></form>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='vendor/face-api.min.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+{% if focus_live %}<script>window.addEventListener("load",()=>document.querySelector("#live")?.scrollIntoView({behavior:"smooth",block:"start"}));</script>{% endif %}
+</body>
+</html>
